@@ -1,23 +1,15 @@
-package com.berkbektas.humanresource.dto.request;
+package com.berkbektas.humanresource.dto;
 
-
-import com.berkbektas.humanresource.dto.AddressDto;
-import com.berkbektas.humanresource.dto.EmployeeDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Getter;
-
 import lombok.Setter;
 
-
 import java.math.BigDecimal;
-
 import java.util.Date;
 
 @Getter
 @Setter
-public class EmployeeRequestDto extends AddressDto {
-
+public class EmployeeDto {
     private String firstName;
     private String lastName;
 
@@ -35,7 +27,4 @@ public class EmployeeRequestDto extends AddressDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
-
-    //Adress bilgileri extend edildi
-
 }

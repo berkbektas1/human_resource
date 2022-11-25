@@ -1,17 +1,21 @@
 package com.berkbektas.humanresource.dto.response;
 
-import com.berkbektas.humanresource.model.Address;
+import com.berkbektas.humanresource.dto.AddressDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
 @Setter
-public class EmployeeResponseDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmployeeResponseDto extends AddressDto {
     private String firstName;
     private String lastName;
 
@@ -24,11 +28,16 @@ public class EmployeeResponseDto {
     private String level;
     private String department;
 
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateOfStart;
 
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
-    private Address address;
+    //Address field
+    private String address;
+    private String city;
+    private String country;
+    private String postCode;
+    private String phoneNumber;
 }
