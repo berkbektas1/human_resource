@@ -6,19 +6,18 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Data
 @Entity
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
     private Integer id;
-    private String address;
+    private String addressLine;
     private String city;
     private String country;
     private String postCode;

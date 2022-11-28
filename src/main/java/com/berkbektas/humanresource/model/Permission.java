@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -14,20 +13,24 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "expenses")
-public class Expenses {
+@Table(name = "permissions")
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "expenses_id")
+    @Column(name = "permission_id")
     private Integer id;
-    private String typeOfExpenditure;//harcama türü
-    private Date receiptDate; //Fiş tarihi
-    private BigDecimal spendingAmount; // harcama miktarı
-    private Double taxRate;
+    private String permissionType;
+
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
+
+    private Integer totalDay;
     private String description;
 
     @ManyToOne()
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 }
-

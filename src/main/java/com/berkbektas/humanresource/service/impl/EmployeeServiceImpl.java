@@ -1,45 +1,59 @@
 package com.berkbektas.humanresource.service.impl;
 
-import com.berkbektas.humanresource.dto.response.EmployeeResponseDto;
-import com.berkbektas.humanresource.dto.request.EmployeeRequestDto;
+import com.berkbektas.humanresource.client.dto.EmployeeDto;
+import com.berkbektas.humanresource.client.dto.request.CreateEmployeeRequest;
+import com.berkbektas.humanresource.exception.CustomerNotFoundException;
+import com.berkbektas.humanresource.mapper.AddressMapper;
 import com.berkbektas.humanresource.mapper.EmployeeMapper;
+import com.berkbektas.humanresource.model.Address;
 import com.berkbektas.humanresource.model.Employee;
 import com.berkbektas.humanresource.repository.EmployeeRepository;
 import com.berkbektas.humanresource.service.EmployeeService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
+    private final AddressMapper addressMapper;
 
 
     @Override
-    public EmployeeResponseDto createEmployee(EmployeeRequestDto createEmployeeRequest) {
-        var employee = employeeRepository.save(employeeMapper.dtoToEntity(createEmployeeRequest));
-        return employeeMapper.entityToDto(employee);
+    public EmployeeDto createEmployee(CreateEmployeeRequest createEmployeeRequest) {
+        Employee employee = employeeMapper.toEmployeeFromCreateEmployeeRequest(createEmployeeRequest);
+        Address address = addressMapper.toAddressFromCreateAddressRequest(createEmployeeRequest);
+        address.setEmployee(employee);
+        employee.setAddress(address);
+        return employeeMapper.toEmployeeDto(employeeRepository.save(employee));
     }
 
     @Override
-    public List<EmployeeResponseDto> getAllEmployee() {
+    public List<EmployeeDto> getAllEmployee() {
         var employeeList = employeeRepository.findAll();
         return employeeList.stream()
-                .map(employeeMapper::entityToDto).collect(Collectors.toList());
+                .map(employeeMapper::toEmployeeDto)
+                .toList();
     }
 
+    @Override
+    public EmployeeDto getEmployeeById(Integer id) {
+        var employeeOptional = employeeRepository.findById(id);
+
+        return employeeOptional.map(employeeMapper::toEmployeeDto)
+                .orElseThrow(() ->new CustomerNotFoundException("Customer not exist"));
+
+    }
 
 
     @Override
     public Boolean deleteEmployee(Integer id) {
-        var employee = employeeRepository.findById(id);
-        if (employee.isPresent()){
+        var employeeOptional = employeeRepository.findById(id);
+        if (employeeOptional.isPresent()){
             employeeRepository.deleteById(id);
             return true;
         }

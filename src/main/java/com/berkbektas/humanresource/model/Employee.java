@@ -1,21 +1,17 @@
 package com.berkbektas.humanresource.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
+@Data
 @Entity
-@Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "employees")
 public class Employee {
     @Id
@@ -29,19 +25,17 @@ public class Employee {
     private String email;
 
     private String identityNumber;
-    private BigDecimal salary;
+    private Double salary;
     private String title;
     private String role;
     private String level;
     private String department;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
-    private Date dateOfStart;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfStart;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfBirth;
 
     @OneToOne(
             mappedBy = "employee",
@@ -56,15 +50,13 @@ public class Employee {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonIgnore
-    private List<Expenses> expensesList;
+    private List<Expense> expensesList;
 
     @OneToMany(
             mappedBy = "employee",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonIgnore
-    private List<Permissions> permissionsList;
+    private List<Permission> permissionsList;
 
 }

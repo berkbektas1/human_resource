@@ -1,30 +1,31 @@
-package com.berkbektas.humanresource.dto;
+package com.berkbektas.humanresource.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.util.Date;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+
+@Data
+@Builder
 public class EmployeeDto {
     private String firstName;
     private String lastName;
-
     private String email;
-
     private String identityNumber;
-    private BigDecimal salary;
+    private Double salary;
     private String title;
     private String role;
     private String level;
     private String department;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date dateOfStart;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfStart;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date dateOfBirth;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfBirth;
 }

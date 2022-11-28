@@ -1,11 +1,13 @@
 package com.berkbektas.humanresource.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity
@@ -13,22 +15,23 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Permissions {
+@Table(name = "expenses")
+public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "expense_id")
     private Integer id;
-    private String permissionType;
+    private String typeOfExpenditure;//harcama türü
 
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date receiptDate; //Fiş tarihi
 
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
-
-    private Integer totalDay;
+    private Double spendingAmount; // harcama miktarı
+    private Double taxRate;
     private String description;
 
     @ManyToOne()
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 }
+
