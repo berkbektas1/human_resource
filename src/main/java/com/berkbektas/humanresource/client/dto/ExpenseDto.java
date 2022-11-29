@@ -1,5 +1,4 @@
-package com.berkbektas.humanresource.client.dto.request;
-
+package com.berkbektas.humanresource.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -10,8 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class CreateExpenseRequestDto {
-
+public class ExpenseDto {
     private String typeOfExpenditure;//harcama türü
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -21,5 +19,5 @@ public class CreateExpenseRequestDto {
     private Double taxRate;
     private String description;
 
-    private Integer employee_id;
+//    private Integer employee_id;
 }

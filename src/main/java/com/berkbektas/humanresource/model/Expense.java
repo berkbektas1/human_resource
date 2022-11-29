@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -24,7 +24,7 @@ public class Expense {
     private String typeOfExpenditure;//harcama türü
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date receiptDate; //Fiş tarihi
+    private LocalDate receiptDate; //Fiş tarihi
 
     private Double spendingAmount; // harcama miktarı
     private Double taxRate;

@@ -1,14 +1,16 @@
-//package com.berkbektas.humanresource.service;
-//
-//import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequestDto;
-//import com.berkbektas.humanresource.client.dto.response.ExpenseResponseDto;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//
-//@Service
-//public interface aExpenseService {
-//    Boolean createExpense(CreateExpenseRequestDto expenseRequestDto);
-//
-//    List<ExpenseResponseDto> getAllExpense();
-//}
+package com.berkbektas.humanresource.service;
+
+import com.berkbektas.humanresource.client.dto.ExpenseDto;
+import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public interface ExpenseService {
+    ExpenseDto createExpense(CreateExpenseRequest expenseRequestDto);
+
+    List<ExpenseDto> getAllExpenseByEmployeeId(Integer id);
+
+    List<ExpenseDto> getAllExpense();
+}

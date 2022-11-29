@@ -1,49 +1,51 @@
-//package com.berkbektas.humanresource.service.impl;
-//
-//import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequestDto;
-//import com.berkbektas.humanresource.client.dto.response.ExpenseResponseDto;
-//import com.berkbektas.humanresource.mapper.ExpenseMapper;
-//import com.berkbektas.humanresource.model.Employee;
-//import com.berkbektas.humanresource.repository.EmployeeRepository;
-//import com.berkbektas.humanresource.repository.ExpensesRepository;
-//import com.berkbektas.humanresource.service.ExpenseService;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-//@Service
-//public class ExpenseServiceImpl implements ExpenseService {
-//    private final ExpensesRepository expensesRepository;
-//    private final EmployeeRepository employeeRepository;
-////    private final ExpenseMapper expenseMapper;
-//
-//    public ExpenseServiceImpl(ExpensesRepository expensesRepository, EmployeeRepository employeeRepository, ExpenseMapper expenseMapper) {
-//        this.expensesRepository = expensesRepository;
-//        this.employeeRepository = employeeRepository;
-//        this.expenseMapper = expenseMapper;
-//    }
-//
-//    @Override
-//    public Boolean createExpense(CreateExpenseRequestDto expenseRequestDto) {
-//        Optional<Employee> employee = employeeRepository.findById(expenseRequestDto.getEmployee_id());
-////        if (employee.isPresent()){
-////            var expense = expenseMapper.dtoToEntity(expenseRequestDto);
-////            expense.setEmployee(employee.get());
-////            expensesRepository.save(expense);
-////            return true;
-////        }
-//
-//        return false;
-//    }
-//
-//    @Override
-//    public List<ExpenseResponseDto> getAllExpense() {
-////        var expenseList = expensesRepository.findAll();
-////        return expenseList.stream()
-////                .map(expenseMapper::entityToDto)
-////                .collect(Collectors.toList());
-//        return null;
-//    }
-//}
+package com.berkbektas.humanresource.service.impl;
+
+import com.berkbektas.humanresource.client.dto.ExpenseDto;
+import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
+import com.berkbektas.humanresource.mapper.ExpenseMapper;
+import com.berkbektas.humanresource.model.Employee;
+import com.berkbektas.humanresource.repository.EmployeeRepository;
+import com.berkbektas.humanresource.repository.ExpensesRepository;
+import com.berkbektas.humanresource.service.ExpenseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+
+
+@Service
+@RequiredArgsConstructor
+public class ExpenseServiceImpl implements ExpenseService {
+    private final ExpensesRepository expensesRepository;
+    private final EmployeeRepository employeeRepository;
+    private final ExpenseMapper expenseMapper;
+
+
+    @Override
+    public ExpenseDto createExpense(CreateExpenseRequest createExpenseRequest) {
+        Employee employeeOptional = employeeRepository.findById(createExpenseRequest.getEmployee_id())
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+
+        var expense = expenseMapper.toExpenseFromCreateExpenseRequest(createExpenseRequest);
+        expense.setEmployee(employeeOptional);
+        expensesRepository.save(expense);
+        return expenseMapper.toExpenseDto(expense);
+
+    }
+
+    public List<ExpenseDto> getAllExpenseByEmployeeId(@PathVariable Integer id){
+        var expenseList = expensesRepository.findAllExpenseByEmployeeId(id);
+        return expenseList.stream()
+                .map(expenseMapper::toExpenseDto)
+                .toList();
+    }
+
+    @Override
+    public List<ExpenseDto> getAllExpense() {
+        var expenseList = expensesRepository.findAll();
+        return expenseList.stream()
+                .map(expenseMapper::toExpenseDto)
+                .toList();
+    }
+}
