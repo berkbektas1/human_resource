@@ -19,5 +19,5 @@ public class ExpenseDto {
     private Double taxRate;
     private String description;
 
-//    private Integer employee_id;
+    private Integer employee_id;
 }

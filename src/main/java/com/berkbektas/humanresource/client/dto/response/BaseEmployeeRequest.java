@@ -1,6 +1,5 @@
 package com.berkbektas.humanresource.client.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

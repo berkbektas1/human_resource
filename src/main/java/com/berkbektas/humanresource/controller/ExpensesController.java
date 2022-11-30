@@ -24,8 +24,14 @@ public class ExpensesController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<ExpenseDto>> getAllExpenseById(@PathVariable Integer id){
+    public ResponseEntity<List<ExpenseDto>> getAllExpenseByEmployeeId(@PathVariable Integer id){
         return ResponseEntity.ok(expenseService.getAllExpenseByEmployeeId(id));
     }
+
+    @GetMapping
+    public ResponseEntity<List<ExpenseDto>> getAllExpense(){
+        return ResponseEntity.ok(expenseService.getAllExpense());
+    }
+
 
 }

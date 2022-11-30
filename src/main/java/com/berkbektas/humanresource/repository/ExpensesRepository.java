@@ -10,10 +10,9 @@ import java.util.List;
 @Repository
 public interface ExpensesRepository extends JpaRepository<Expense, Integer> {
     @Query("""
-    SELECT ex
-    FROM Expense ex
-    WHERE ex.employee.id = :id
-    
-""")
+        SELECT ex
+        FROM Expense ex
+        WHERE ex.employee.id = :id
+    """)
     List<Expense> findAllExpenseByEmployeeId(Integer id);
 }

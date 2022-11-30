@@ -3,7 +3,6 @@ package com.berkbektas.humanresource.service.impl;
 import com.berkbektas.humanresource.client.dto.ExpenseDto;
 import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
 import com.berkbektas.humanresource.mapper.ExpenseMapper;
-import com.berkbektas.humanresource.model.Employee;
 import com.berkbektas.humanresource.repository.EmployeeRepository;
 import com.berkbektas.humanresource.repository.ExpensesRepository;
 import com.berkbektas.humanresource.service.ExpenseService;
@@ -24,7 +23,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseDto createExpense(CreateExpenseRequest createExpenseRequest) {
-        Employee employeeOptional = employeeRepository.findById(createExpenseRequest.getEmployee_id())
+        var employeeOptional = employeeRepository.findById(createExpenseRequest.getEmployee_id())
                 .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
 
         var expense = expenseMapper.toExpenseFromCreateExpenseRequest(createExpenseRequest);
@@ -34,6 +33,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     }
 
+    @Override
     public List<ExpenseDto> getAllExpenseByEmployeeId(@PathVariable Integer id){
         var expenseList = expensesRepository.findAllExpenseByEmployeeId(id);
         return expenseList.stream()
@@ -47,5 +47,9 @@ public class ExpenseServiceImpl implements ExpenseService {
         return expenseList.stream()
                 .map(expenseMapper::toExpenseDto)
                 .toList();
+    }
+    @Override
+    public void deleteEmployee(Integer id) {
+        expensesRepository.deleteById(id);
     }
 }
