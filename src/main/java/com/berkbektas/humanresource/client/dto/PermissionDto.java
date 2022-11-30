@@ -1,23 +1,22 @@
 package com.berkbektas.humanresource.client.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import java.time.LocalDate;
+
 @Getter
 @Setter
 public class PermissionDto {
 
     private String permissionType;
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate startDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate endDate;
     private Integer totalDay;
     private String description;
-
-    private Integer employee_id;
 }

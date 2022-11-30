@@ -1,11 +1,13 @@
 package com.berkbektas.humanresource.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,11 +23,11 @@ public class Permission {
     private Integer id;
     private String permissionType;
 
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate startDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate endDate;
 
     private Integer totalDay;
     private String description;

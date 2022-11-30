@@ -6,10 +6,9 @@ import com.berkbektas.humanresource.client.dto.request.CreatePermissionRequest;
 import com.berkbektas.humanresource.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/permission")
@@ -21,6 +20,16 @@ public class PermissionController {
     @PostMapping
     public ResponseEntity<PermissionDto> createPermission(@RequestBody CreatePermissionRequest createPermissionRequest){
         return ResponseEntity.ok(permissionService.createPermission(createPermissionRequest));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PermissionDto>> getAllPermission(){
+        return ResponseEntity.ok(permissionService.getAllPermission());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<PermissionDto>> getAllPermissionByEmployeeId(@PathVariable Integer id){
+        return ResponseEntity.ok(permissionService.getAllPermissionByEmployeeId(id));
     }
 
 
