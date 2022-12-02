@@ -15,5 +15,5 @@ public interface PermissionService {
 
     List<PermissionDto> getAllPermission();
 
-    void deleteEmployee(Integer id);
+    void deletePermission(Integer id);
 }

@@ -14,5 +14,5 @@ public interface ExpenseService {
 
     List<ExpenseDto> getAllExpense();
 
-    void deleteEmployee(Integer id);
+    void deleteExpense(Integer id);
 }

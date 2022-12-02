@@ -19,4 +19,5 @@ public class PermissionDto {
     private LocalDate endDate;
     private Integer totalDay;
     private String description;
+    private Integer employeeId;
 }

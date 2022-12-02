@@ -48,8 +48,9 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .map(expenseMapper::toExpenseDto)
                 .toList();
     }
+
     @Override
-    public void deleteEmployee(Integer id) {
+    public void deleteExpense(Integer id) {
         expensesRepository.deleteById(id);
     }
 }

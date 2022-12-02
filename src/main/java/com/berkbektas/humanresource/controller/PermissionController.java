@@ -5,6 +5,7 @@ import com.berkbektas.humanresource.client.dto.PermissionDto;
 import com.berkbektas.humanresource.client.dto.request.CreatePermissionRequest;
 import com.berkbektas.humanresource.service.PermissionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,5 +33,10 @@ public class PermissionController {
         return ResponseEntity.ok(permissionService.getAllPermissionByEmployeeId(id));
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteCustomer(@PathVariable Integer id){
+        permissionService.deletePermission(id);
+    }
 
 }

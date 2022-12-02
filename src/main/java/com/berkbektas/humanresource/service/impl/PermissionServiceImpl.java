@@ -45,10 +45,8 @@ public class PermissionServiceImpl implements PermissionService {
                 .toList();
     }
 
-
     @Override
-    public void deleteEmployee(Integer id) {
+    public void deletePermission(Integer id) {
         permissionRepository.deleteById(id);
     }
-
 }
