@@ -1,6 +1,6 @@
 package com.berkbektas.humanresource.service.impl;
 
-import com.berkbektas.humanresource.client.dto.ExpenseDto;
+import com.berkbektas.humanresource.client.dto.response.ExpenseDto;
 import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
 import com.berkbektas.humanresource.mapper.ExpenseMapper;
 import com.berkbektas.humanresource.repository.EmployeeRepository;

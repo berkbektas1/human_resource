@@ -1,4 +1,4 @@
-package com.berkbektas.humanresource.client.dto;
+package com.berkbektas.humanresource.client.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;

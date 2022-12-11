@@ -1,7 +1,8 @@
 package com.berkbektas.humanresource.service.impl;
 
-import com.berkbektas.humanresource.client.dto.EmployeeDto;
+import com.berkbektas.humanresource.client.dto.response.EmployeeDto;
 import com.berkbektas.humanresource.client.dto.request.CreateEmployeeRequest;
+import com.berkbektas.humanresource.client.dto.request.UpdateEmployeeRequest;
 import com.berkbektas.humanresource.exception.CustomerNotFoundException;
 import com.berkbektas.humanresource.mapper.AddressMapper;
 import com.berkbektas.humanresource.mapper.EmployeeMapper;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +51,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
+    @Override
+    public EmployeeDto updateEmployeeById(Integer id, UpdateEmployeeRequest updateEmployeeRequest) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+
+        employeeOptional.ifPresent(employee -> {
+            employee.setFirstName(updateEmployeeRequest.getFirstName());
+            employee.setLastName(updateEmployeeRequest.getLastName());
+            employee.setEmail(updateEmployeeRequest.getEmail());
+            employee.setIdentityNumber(updateEmployeeRequest.getIdentityNumber());
+            employee.setSalary(updateEmployeeRequest.getSalary());
+            employee.setTitle(updateEmployeeRequest.getTitle());
+            employee.setRole(updateEmployeeRequest.getRole());
+            employee.setLevel(updateEmployeeRequest.getLevel());
+            employee.setDepartment(updateEmployeeRequest.getDepartment());
+            employee.setDateOfStart(updateEmployeeRequest.getDateOfStart());
+            employee.setDateOfBirth(updateEmployeeRequest.getDateOfBirth());
+            employeeRepository.save(employee);
+        });
+
+        return employeeOptional.map(employeeMapper::toEmployeeDto)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found!"));
+    }
 
     @Override
     public Boolean deleteEmployee(Integer id) {

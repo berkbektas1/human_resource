@@ -1,13 +1,14 @@
 package com.berkbektas.humanresource.controller;
 
 import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
-import com.berkbektas.humanresource.client.dto.ExpenseDto;
+import com.berkbektas.humanresource.client.dto.response.ExpenseDto;
 
 import com.berkbektas.humanresource.service.ExpenseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class ExpensesController {
     }
 
     @PostMapping
-    public ResponseEntity<ExpenseDto> createExpense(@RequestBody CreateExpenseRequest expenseRequestDto){
+    public ResponseEntity<ExpenseDto> createExpense( @RequestBody CreateExpenseRequest expenseRequestDto){
         return ResponseEntity.ok(expenseService.createExpense(expenseRequestDto));
     }
 

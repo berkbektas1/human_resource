@@ -1,4 +1,4 @@
-package com.berkbektas.humanresource.client.dto;
+package com.berkbektas.humanresource.client.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

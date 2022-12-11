@@ -1,4 +1,4 @@
-package com.berkbektas.humanresource.client.dto;
+package com.berkbektas.humanresource.client.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -19,5 +19,5 @@ public class ExpenseDto {
     private Double taxRate;
     private String description;
 
-    private Integer employee_id;
+    private Integer employeeId;
 }
