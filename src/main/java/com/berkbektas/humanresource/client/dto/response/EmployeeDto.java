@@ -1,21 +1,19 @@
-package com.berkbektas.humanresource.client.dto.response;
+package com.berkbektas.humanresource.client.dto;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDate;
 
 
-@Getter
-@Setter
-@SuperBuilder
-@ToString
-public class BaseEmployeeRequest{
+@Data
+@Builder
+public class EmployeeDto {
+    private Integer id; //frontend için id döndüm
     private String firstName;
     private String lastName;
-
     private String email;
-
     private String identityNumber;
     private Double salary;
     private String title;
@@ -26,5 +24,4 @@ public class BaseEmployeeRequest{
     private LocalDate dateOfStart;
 
     private LocalDate dateOfBirth;
-    //Address bilgileri extend edildi.
 }
