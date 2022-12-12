@@ -1,6 +1,7 @@
 package com.berkbektas.humanresource.controller;
 
 import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
+import com.berkbektas.humanresource.client.dto.request.UpdateExpenseRequest;
 import com.berkbektas.humanresource.client.dto.response.ExpenseDto;
 
 import com.berkbektas.humanresource.service.ExpenseService;
@@ -33,6 +34,11 @@ public class ExpensesController {
     @GetMapping
     public ResponseEntity<List<ExpenseDto>> getAllExpense(){
         return ResponseEntity.ok(expenseService.getAllExpense());
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ExpenseDto> updateExpenseById(@PathVariable Integer id,
+                                                    @RequestBody UpdateExpenseRequest updateExpenseRequest){
+        return ResponseEntity.ok(expenseService.updateExpenseById(id,updateExpenseRequest));
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.berkbektas.humanresource.service;
 
+import com.berkbektas.humanresource.client.dto.request.UpdateExpenseRequest;
 import com.berkbektas.humanresource.client.dto.response.ExpenseDto;
 import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public interface ExpenseService {
 
     List<ExpenseDto> getAllExpense();
 
-
+    ExpenseDto updateExpenseById(Integer id, UpdateExpenseRequest updateExpenseRequest);
 
     void deleteExpense(Integer id);
 }

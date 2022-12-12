@@ -1,8 +1,10 @@
 package com.berkbektas.humanresource.service.impl;
 
+import com.berkbektas.humanresource.client.dto.request.UpdateExpenseRequest;
 import com.berkbektas.humanresource.client.dto.response.ExpenseDto;
 import com.berkbektas.humanresource.client.dto.request.CreateExpenseRequest;
 import com.berkbektas.humanresource.mapper.ExpenseMapper;
+import com.berkbektas.humanresource.model.Expense;
 import com.berkbektas.humanresource.repository.EmployeeRepository;
 import com.berkbektas.humanresource.repository.ExpensesRepository;
 import com.berkbektas.humanresource.service.ExpenseService;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -47,6 +50,22 @@ public class ExpenseServiceImpl implements ExpenseService {
         return expenseList.stream()
                 .map(expenseMapper::toExpenseDto)
                 .toList();
+    }
+
+    @Override
+    public ExpenseDto updateExpenseById(Integer id, UpdateExpenseRequest updateExpenseRequest) {
+        Optional<Expense> expenseOptional = expensesRepository.findById(id);
+
+        expenseOptional.ifPresent(expense -> {
+            expense.setReceiptDate(updateExpenseRequest.getReceiptDate());
+            expense.setTaxRate(updateExpenseRequest.getTaxRate());
+            expense.setTypeOfExpenditure(updateExpenseRequest.getTypeOfExpenditure());
+            expense.setDescription(updateExpenseRequest.getDescription());
+            expense.setSpendingAmount(updateExpenseRequest.getSpendingAmount());
+            expensesRepository.save(expense);
+        });
+        return expenseOptional.map(expenseMapper::toExpenseDto)
+                .orElseThrow(() -> new RuntimeException("Expense not found"));
     }
 
     @Override

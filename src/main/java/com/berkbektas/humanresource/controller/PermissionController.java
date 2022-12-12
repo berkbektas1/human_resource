@@ -20,7 +20,7 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @PostMapping
-    public ResponseEntity<PermissionDto> createPermission( @RequestBody CreatePermissionRequest createPermissionRequest){
+    public ResponseEntity<PermissionDto> createPermission(@RequestBody CreatePermissionRequest createPermissionRequest){
         return ResponseEntity.ok(permissionService.createPermission(createPermissionRequest));
     }
 
@@ -33,6 +33,7 @@ public class PermissionController {
     public ResponseEntity<List<PermissionDto>> getAllPermissionByEmployeeId(@PathVariable Integer id){
         return ResponseEntity.ok(permissionService.getAllPermissionByEmployeeId(id));
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
